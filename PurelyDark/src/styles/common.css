@@ -1,0 +1,139 @@
+/* ============================================================
+   Reusable component classes (Tailwind @layer)
+   ============================================================ */
+@layer components {
+  /* ---- Containers & layout ---- */
+  .container-luxe {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  }
+  .section {
+    @apply py-16 sm:py-24 lg:py-28;
+  }
+  .section-tight {
+    @apply py-12 sm:py-16;
+  }
+
+  /* ---- Typography ---- */
+  .heading-xl {
+    @apply font-serif font-extrabold text-cream;
+    font-size: clamp(2.35rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+  .heading-lg {
+    @apply font-serif font-bold text-cream;
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .heading-md {
+    @apply font-serif font-semibold text-cream;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-luxe text-gold;
+  }
+  .lede {
+    @apply text-base sm:text-lg text-cream/70 font-light leading-relaxed;
+    letter-spacing: 0.005em;
+  }
+  .text-muted {
+    @apply text-cream/60;
+  }
+  .text-gold-grad {
+    @apply bg-gold-gradient bg-clip-text text-transparent;
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-7 py-3.5
+           text-sm font-medium uppercase tracking-[0.18em] transition-all duration-500
+           ease-luxe select-none disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-gold {
+    @apply btn bg-gold-gradient text-espresso shadow-gold hover:shadow-[0_18px_55px_-10px_rgba(198,154,82,0.7)]
+           hover:-translate-y-0.5;
+  }
+  .btn-outline {
+    @apply btn border border-gold/50 text-cream hover:bg-gold hover:text-espresso;
+  }
+  .btn-ghost {
+    @apply btn text-cream/80 hover:text-gold;
+  }
+  .btn-dark {
+    @apply btn bg-cocoa text-cream border border-white/5 hover:border-gold/40 hover:text-gold;
+  }
+
+  /* ---- Cards / surfaces ---- */
+  /* Warm mocha card — clearly lighter than the espresso background, with a
+     subtle champagne-gold border. Brightens gently on hover. */
+  .card {
+    @apply relative rounded-2xl border shadow-card transition-all duration-500 ease-luxe;
+    background: linear-gradient(155deg, #493126 0%, #302018 100%);
+    border-color: rgba(198, 154, 82, 0.16);
+  }
+  .card:hover {
+    background: linear-gradient(155deg, #55392c 0%, #38251c 100%);
+    border-color: rgba(198, 154, 82, 0.42);
+  }
+  .glass {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
+  }
+  .hairline {
+    @apply border-t border-white/10;
+  }
+
+  /* ---- Badges ---- */
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-[0.65rem] font-semibold
+           uppercase tracking-wider;
+  }
+  .badge-gold {
+    @apply badge bg-gold text-espresso;
+  }
+  .badge-dark {
+    @apply badge bg-espresso/80 text-gold border border-gold/30;
+  }
+  .badge-sale {
+    @apply badge bg-caramel text-white;
+  }
+
+  /* ---- Inputs ---- */
+  .input-luxe {
+    @apply w-full rounded-xl bg-espresso/60 border border-white/10 px-4 py-3 text-cream
+           placeholder:text-cream/40 focus:border-gold/60 focus:outline-none
+           transition-colors duration-300;
+  }
+  .label-luxe {
+    @apply mb-2 block text-xs font-medium uppercase tracking-wider text-cream/70;
+  }
+
+  /* ---- Dividers / decorative ---- */
+  .gold-rule {
+    @apply h-px w-16 bg-gold-gradient;
+  }
+}
+
+/* Utility: gold glow ring on hover for interactive media */
+.glow-hover {
+  transition: box-shadow 0.5s var(--ease-luxe), transform 0.5s var(--ease-luxe);
+}
+.glow-hover:hover {
+  box-shadow: 0 0 0 1px rgba(198, 154, 82, 0.4), 0 30px 60px -25px rgba(0, 0, 0, 0.8);
+}
+
+/* Line clamp helpers */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

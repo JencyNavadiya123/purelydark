@@ -1,0 +1,141 @@
+/* @import rules must precede @tailwind directives (PostCSS requirement) */
+@import "./common.css";
+@import "./animations.css";
+@import "./video.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   PurelyDark — Design System Root
+   ============================================================ */
+:root {
+  --c-chocolate: #24130f;
+  --c-cocoa: #382018;
+  --c-espresso: #100b09;
+  --c-gold: #c69a52;
+  --c-gold-soft: #d9b779;
+  --c-cream: #f4e5ce;
+  --c-caramel: #a96c36;
+  --c-white: #ffffff;
+
+  --container: 1280px;
+  --header-h: 84px;
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--c-espresso);
+  /* Unique luxury backdrop: warm ambient gold glows + a faint cocoa-dot weave */
+  background-image: radial-gradient(
+      circle at 15% 8%,
+      rgba(198, 154, 82, 0.07),
+      transparent 40%
+    ),
+    radial-gradient(circle at 85% 92%, rgba(169, 108, 54, 0.06), transparent 42%),
+    radial-gradient(rgba(198, 154, 82, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 26px 26px;
+  background-attachment: fixed, fixed, fixed;
+  color: var(--c-cream);
+  font-family: "Jost", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga", "calt", "lnum", "tnum";
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Crisp, elegant figures — lining & tabular so numbers align everywhere
+   (prices, ratings, stats, counts, cocoa %). */
+.num,
+.tabular-nums,
+[class*="price"],
+.stat-num {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum", "tnum";
+}
+
+/* Large display figures (hero stats, 404, legal numerals) */
+.stat-num {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Serif display headings — tighter, higher-contrast, more luxurious */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+/* Prevent horizontal overflow everywhere */
+#root {
+  overflow-x: clip;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Hide scrollbar (keep scrolling) */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari/Edge */
+}
+
+::selection {
+  background: var(--c-gold);
+  color: var(--c-espresso);
+}
+
+/* Focus visibility for accessibility */
+:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
