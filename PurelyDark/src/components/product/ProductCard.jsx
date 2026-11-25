@@ -68,9 +68,9 @@ export default function ProductCard({ product, onQuickView }) {
       </Link>
 
       <div className="flex flex-1 flex-col p-5">
-        <span className="flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.18em] text-gold/85">
-          <span className="h-px w-4 bg-gold/60" />
-          {product.origin}
+        <span className="flex h-4 items-center gap-2 text-[0.68rem] uppercase tracking-[0.18em] text-gold/85">
+          <span className="h-px w-4 shrink-0 bg-gold/60" />
+          <span className="truncate">{product.origin}</span>
         </span>
         <Link to={`/product/${product.slug}`}>
           <h3 className="clamp-2 mt-2 min-h-[3.4rem] font-serif text-lg leading-snug text-cream transition-colors group-hover:text-gold">

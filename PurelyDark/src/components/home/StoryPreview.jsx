@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Reveal from "../common/Reveal";
+import { ScrollZoom } from "../common/Parallax";
 import { img } from "../../utils/assets";
 
 export default function StoryPreview() {
@@ -32,8 +33,16 @@ export default function StoryPreview() {
         </div>
         <Reveal variant="right" className="order-1 lg:order-2">
           <div className="grid grid-cols-2 gap-4">
-            <img src={img(9, 600, 800)} alt="" loading="lazy" className="mt-8 h-full w-full rounded-2xl object-cover" />
-            <img src={img(13, 600, 800)} alt="" loading="lazy" className="h-full w-full rounded-2xl object-cover" />
+            <div className="mt-8 overflow-hidden rounded-2xl">
+              <ScrollZoom from={1.14} className="h-full w-full">
+                <img src={img(9, 600, 800)} alt="" loading="lazy" className="h-full w-full object-cover" />
+              </ScrollZoom>
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <ScrollZoom from={1.18} className="h-full w-full">
+                <img src={img(13, 600, 800)} alt="" loading="lazy" className="h-full w-full object-cover" />
+              </ScrollZoom>
+            </div>
           </div>
         </Reveal>
       </div>

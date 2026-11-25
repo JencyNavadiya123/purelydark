@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { Parallax } from "../common/Parallax";
 import ProductCard from "../product/ProductCard";
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -20,6 +21,7 @@ export default function BestSellers({
   eyebrow,
   to = "/best-sellers",
 }) {
+  const reduce = useReducedMotion();
   // Duplicate the list so the marquee loops seamlessly (-50% = one set).
   const loop = [...products, ...products];
 
@@ -28,8 +30,10 @@ export default function BestSellers({
       className="section relative overflow-hidden"
       style={{ background: "linear-gradient(180deg,#1b100b 0%,#2a1810 55%,#1d110c 100%)" }}
     >
-      {/* soft ambient gold glow */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[40vh] w-[70vw] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(198,154,82,0.1),transparent_68%)]" />
+      {/* soft ambient gold glow — gentle scroll parallax */}
+      <Parallax className="pointer-events-none absolute inset-0" speed={0.16}>
+        <div className="absolute left-1/2 top-0 h-[40vh] w-[70vw] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(198,154,82,0.1),transparent_68%)]" />
+      </Parallax>
 
       <div className="container-luxe relative">
         <motion.div
@@ -55,18 +59,32 @@ export default function BestSellers({
         </motion.div>
       </div>
 
-      {/* Full-bleed continuous marquee */}
-      <div className="product-marquee-wrap relative mt-2 overflow-hidden">
-        <div className="animate-product-marquee flex w-max gap-5 sm:gap-6">
-          {loop.map((p, i) => (
-            <div key={`${p.id}-${i}`} className="w-[230px] shrink-0 sm:w-[270px]">
-              <ProductCard product={p} onQuickView={onQuickView} />
-            </div>
-          ))}
+      {/* Continuous marquee — constrained to the section width */}
+      <div className="container-luxe relative">
+        <div className="product-marquee-wrap relative mt-2 overflow-hidden rounded-2xl">
+          <div className="animate-product-marquee flex w-max items-stretch gap-5 py-1 sm:gap-6">
+            {loop.map((p, i) => (
+              <motion.div
+                key={`${p.id}-${i}`}
+                className="flex w-[230px] shrink-0 sm:w-[270px]"
+                initial={reduce ? false : { opacity: 0, y: 44, scale: 0.96 }}
+                whileInView={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.6,
+                  // one-by-one cascade for the first row, then settle
+                  delay: Math.min(i % products.length, 6) * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <ProductCard product={p} onQuickView={onQuickView} />
+              </motion.div>
+            ))}
+          </div>
+          {/* edge fades for a premium cinematic feel */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#23140d] to-transparent sm:w-16" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#1d110c] to-transparent sm:w-16" />
         </div>
-        {/* edge fades for a premium cinematic feel */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#1d110c] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#1d110c] to-transparent" />
       </div>
     </section>
   );

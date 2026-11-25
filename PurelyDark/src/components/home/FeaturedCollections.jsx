@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Parallax } from "../common/Parallax";
 import { getCollectionBySlug, getCollectionProducts } from "../../data/collections";
 
 /* The three featured collections (real data) with editorial copy + number. */
@@ -178,9 +179,13 @@ export default function FeaturedCollections() {
           "linear-gradient(165deg,#24150F 0%,#1b100a 48%,#382016 100%)",
       }}
     >
-      {/* Ambient champagne-gold lighting */}
-      <div className="pointer-events-none absolute left-1/2 top-[-18%] h-[55vh] w-[85vw] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(198,154,82,0.14),transparent_68%)]" />
-      <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] h-[45vh] w-[45vw] rounded-full bg-[radial-gradient(circle,rgba(169,108,54,0.12),transparent_70%)]" />
+      {/* Ambient champagne-gold lighting — drifts gently on scroll (parallax) */}
+      <Parallax className="pointer-events-none absolute inset-0" speed={0.18}>
+        <div className="absolute left-1/2 top-[-18%] h-[55vh] w-[85vw] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(198,154,82,0.14),transparent_68%)]" />
+      </Parallax>
+      <Parallax className="pointer-events-none absolute inset-0" speed={-0.12}>
+        <div className="absolute bottom-[-20%] right-[-10%] h-[45vh] w-[45vw] rounded-full bg-[radial-gradient(circle,rgba(169,108,54,0.12),transparent_70%)]" />
+      </Parallax>
       <Particles />
 
       <div className="container-luxe relative">

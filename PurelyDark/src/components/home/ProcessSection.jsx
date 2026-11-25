@@ -13,7 +13,7 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section className="section bg-cocoa/30">
+    <section className="section">
       <div className="container-luxe">
         <SectionHeading
           eyebrow="Bean to Bar"

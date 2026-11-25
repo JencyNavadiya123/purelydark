@@ -4,9 +4,7 @@ import FeaturedCollections from "../components/home/FeaturedCollections";
 import ShopByCategory from "../components/home/ShopByCategory";
 import BestSellers from "../components/home/BestSellers";
 import ProcessSection from "../components/home/ProcessSection";
-import IngredientsSection from "../components/home/IngredientsSection";
 import StoryPreview from "../components/home/StoryPreview";
-import SignatureCollection from "../components/home/SignatureCollection";
 import InstagramGallery from "../components/home/InstagramGallery";
 import ChocolateVideoSection from "../components/video/ChocolateVideoSection";
 import Testimonials from "../components/common/Testimonials";
@@ -26,7 +24,6 @@ export default function Home() {
       <ShopByCategory />
       <BestSellers products={bestSellers} onQuickView={setQuickView} />
       <ProcessSection />
-      <IngredientsSection />
 
       {/* Cinematic craftsmanship video band */}
       <ChocolateVideoSection
@@ -38,7 +35,6 @@ export default function Home() {
       />
 
       <StoryPreview />
-      <SignatureCollection onQuickView={setQuickView} />
       <Testimonials />
       <InstagramGallery />
       <Newsletter />

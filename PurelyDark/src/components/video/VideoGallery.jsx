@@ -4,10 +4,14 @@ import { StaggerGroup, StaggerItem } from "../common/Reveal";
 /* Grid of cinematic clips with labels. items: [{video, label}] */
 export default function VideoGallery({ items = [] }) {
   return (
-    <StaggerGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <StaggerGroup
+      stagger={0.16}
+      delayChildren={0.1}
+      className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+    >
       {items.map((it, i) => (
-        <StaggerItem key={i}>
-          <div className="group relative overflow-hidden rounded-2xl border border-white/5">
+        <StaggerItem key={i} variant="up">
+          <div className="group relative overflow-hidden rounded-2xl border-2 border-white/40 transition-colors duration-500 hover:border-white/70">
             <BaseVideo
               src={it.video.src}
               webm={it.video.webm}

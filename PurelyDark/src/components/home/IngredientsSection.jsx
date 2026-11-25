@@ -1,6 +1,7 @@
 import { Leaf, Award, Globe2, Sparkles } from "lucide-react";
 import SectionHeading from "../common/SectionHeading";
 import Reveal from "../common/Reveal";
+import { ScrollZoom } from "../common/Parallax";
 import { img } from "../../utils/assets";
 
 const items = [
@@ -17,7 +18,9 @@ export default function IngredientsSection() {
         <Reveal variant="left">
           <div className="relative">
             <div className="overflow-hidden rounded-3xl border border-white/5">
-              <img src={img(4, 1000, 1200)} alt="Premium cocoa ingredients" loading="lazy" className="h-full w-full object-cover" />
+              <ScrollZoom className="h-full w-full">
+                <img src={img(4, 1000, 1200)} alt="Premium cocoa ingredients" loading="lazy" className="h-full w-full object-cover" />
+              </ScrollZoom>
             </div>
             <div className="glass absolute -bottom-6 -right-4 hidden rounded-2xl p-5 sm:block">
               <div className="font-serif text-3xl text-gold">100%</div>
