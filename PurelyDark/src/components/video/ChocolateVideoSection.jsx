@@ -10,9 +10,13 @@ export default function ChocolateVideoSection({
   eyebrow,
   title,
   text,
-  height = "h-[70vh] min-h-[460px]",
+  height = "min-h-[400px] h-[58vh] sm:min-h-[440px] lg:h-[62vh] lg:min-h-[520px] xl:min-h-[600px]",
   align = "center",
   controls = false,
+  // Autoplay bands skip the loading poster (video fades straight in).
+  // Manual-play (controls) bands keep the poster as the background image so the
+  // section is never blank before the viewer presses play.
+  posterInitial = controls,
 }) {
   const reduce = useReducedMotion();
   const alignCls =
@@ -32,8 +36,8 @@ export default function ChocolateVideoSection({
     },
   };
   const item = {
-    hidden: { opacity: 0, y: reduce ? 0 : 34 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.8, ease: EASE } },
   };
   return (
     <section className={`relative ${height} w-full overflow-hidden`}>
@@ -43,6 +47,7 @@ export default function ChocolateVideoSection({
         poster={video.poster}
         overlay="gradient"
         controls={controls}
+        posterInitial={posterInitial}
         className="absolute inset-0 h-full w-full"
       />
       <div className="container-luxe relative z-[2] flex h-full items-center">

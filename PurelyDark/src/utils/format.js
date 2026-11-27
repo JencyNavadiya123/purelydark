@@ -7,12 +7,10 @@ export const slugify = (str = "") =>
     .replace(/^-+|-+$/g, "");
 
 export const formatPrice = (value) =>
-  new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
+  `Rs. ${new Intl.NumberFormat("en-IN", {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(value || 0);
+  }).format(value || 0)}`;
 
 export const classNames = (...parts) => parts.filter(Boolean).join(" ");
 

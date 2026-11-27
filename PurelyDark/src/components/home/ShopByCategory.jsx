@@ -11,8 +11,8 @@ const headerC = {
   show: { transition: { staggerChildren: 0.16, delayChildren: 0.05 } },
 };
 const itemV = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.6, ease: EASE } },
 };
 
 export default function ShopByCategory() {
@@ -51,8 +51,8 @@ export default function ShopByCategory() {
           {categories.slice(0, 10).map((c, i) => (
             <motion.div
               key={c.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: (i % 5) * 0.08, ease: EASE }}
             >

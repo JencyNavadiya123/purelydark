@@ -42,7 +42,9 @@ export function img(seed = 0, w = 1200, h = 1200) {
    These are genuine dark-chocolate / cocoa clips served from
    assets.mixkit.co (hotlinkable, no sign-in). Swap any `src` with your
    own footage anytime — every <video> on the site reads from here. */
-const MK = (id, res = 1080) =>
+// 720p is plenty for decorative, full-bleed background footage and keeps
+// bandwidth + GPU decode roughly half of 1080p — much smoother on scroll.
+const MK = (id, res = 720) =>
   `https://assets.mixkit.co/videos/${id}/${id}-${res}.mp4`;
 
 /* Local project video (Vite hashes & bundles it). Used as the hero/footer bg. */

@@ -5,10 +5,11 @@ import { PackageOpen } from "lucide-react";
 const EASE = [0.22, 1, 0.36, 1];
 
 export default function ProductGrid({ products = [], onQuickView, columns = 4 }) {
+  // Base: 1 col on very narrow phones (<375px), 2 cols from 375px up.
   const colCls =
     columns === 3
-      ? "sm:grid-cols-2 lg:grid-cols-3"
-      : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
+      ? "grid-cols-1 min-[375px]:grid-cols-2 lg:grid-cols-3"
+      : "grid-cols-1 min-[375px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
 
   if (!products.length) {
     return (
@@ -21,13 +22,13 @@ export default function ProductGrid({ products = [], onQuickView, columns = 4 })
   }
 
   return (
-    <div className={`grid grid-cols-2 gap-4 sm:gap-6 ${colCls}`}>
+    <div className={`grid gap-4 sm:gap-6 ${colCls}`}>
       {products.map((p, i) => (
         <motion.div
           key={p.id}
-          className="h-full"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="h-full min-w-0"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: (i % columns) * 0.06, ease: EASE }}
         >

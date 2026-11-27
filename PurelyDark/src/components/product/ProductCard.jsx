@@ -45,7 +45,7 @@ export default function ProductCard({ product, onQuickView }) {
         </div>
 
         {/* Cocoa % medallion */}
-        <span className="absolute bottom-3 right-3 grid h-12 w-12 place-items-center rounded-full border border-gold/50 bg-espresso/70 text-center font-serif text-sm font-semibold text-gold backdrop-blur">
+        <span className="absolute bottom-2.5 right-2.5 grid h-10 w-10 place-items-center rounded-full border border-gold/50 bg-espresso/70 text-center font-serif text-xs font-semibold text-gold backdrop-blur sm:bottom-3 sm:right-3 sm:h-12 sm:w-12 sm:text-sm">
           {product.cocoa}%
         </span>
 
@@ -67,35 +67,35 @@ export default function ProductCard({ product, onQuickView }) {
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col p-5">
-        <span className="flex h-4 items-center gap-2 text-[0.68rem] uppercase tracking-[0.18em] text-gold/85">
-          <span className="h-px w-4 shrink-0 bg-gold/60" />
+      <div className="flex flex-1 flex-col p-3.5 sm:p-5">
+        <span className="flex h-4 items-center gap-2 text-[0.6rem] uppercase tracking-[0.16em] text-gold/85 sm:text-[0.68rem] sm:tracking-[0.18em]">
+          <span className="h-px w-3 shrink-0 bg-gold/60 sm:w-4" />
           <span className="truncate">{product.origin}</span>
         </span>
         <Link to={`/product/${product.slug}`}>
-          <h3 className="clamp-2 mt-2 min-h-[3.4rem] font-serif text-lg leading-snug text-cream transition-colors group-hover:text-gold">
+          <h3 className="clamp-2 mt-1.5 min-h-[2.5rem] font-serif text-sm leading-snug text-cream transition-colors group-hover:text-gold sm:mt-2 sm:min-h-[3.4rem] sm:text-base lg:text-lg">
             {product.name}
           </h3>
         </Link>
-        <div className="mt-2.5">
+        <div className="mt-2 sm:mt-2.5">
           <RatingStars rating={product.rating} showValue reviews={product.reviews} />
         </div>
 
         {/* Gold hairline divider */}
-        <div className="mt-4 h-px bg-gradient-to-r from-gold/25 via-gold/10 to-transparent" />
+        <div className="mt-3 h-px bg-gradient-to-r from-gold/25 via-gold/10 to-transparent sm:mt-4" />
 
-        <div className="mt-3 flex items-end justify-between">
-          <div className="flex items-baseline gap-2">
-            <span className="font-serif text-xl font-semibold text-gold">
+        <div className="mt-2.5 flex flex-wrap items-end justify-between gap-x-2 gap-y-1 sm:mt-3">
+          <div className="flex items-baseline gap-1.5 sm:gap-2">
+            <span className="font-serif text-base font-semibold text-gold sm:text-lg lg:text-xl">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
-              <span className="text-sm text-cream/40 line-through">
+              <span className="text-xs text-cream/40 line-through sm:text-sm">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
           </div>
-          <span className="text-[0.65rem] uppercase tracking-wider text-cream/40">
+          <span className="text-[0.6rem] uppercase tracking-wider text-cream/40 sm:text-[0.65rem]">
             {product.weight}
           </span>
         </div>
@@ -103,7 +103,7 @@ export default function ProductCard({ product, onQuickView }) {
         <AddToCartButton
           product={product}
           fullWidth
-          className="mt-auto !mt-4 !py-2.5 !text-xs"
+          className="mt-auto !mt-3 !py-2.5 !text-xs sm:!mt-4"
           label="Add to Cart"
         />
       </div>

@@ -6,6 +6,10 @@ export default function BackgroundVideo({
   overlay = "gradient",
   className = "",
   eager = false,
+  // Background videos skip the loading poster: a dark background shows and the
+  // video fades straight in — no 1-second still image flashing first. The poster
+  // is still used as the fallback on reduced-motion / slow devices / load error.
+  posterInitial = false,
   children,
 }) {
   return (
@@ -15,6 +19,7 @@ export default function BackgroundVideo({
       poster={video.poster}
       overlay={overlay}
       eager={eager}
+      posterInitial={posterInitial}
       className={`absolute inset-0 h-full w-full ${className}`}
     >
       {children}

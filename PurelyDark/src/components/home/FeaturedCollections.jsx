@@ -45,8 +45,8 @@ function CollectionCard({ item }) {
   return (
     <motion.article
       variants={{
-        hidden: { opacity: 0, y: 60 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 0.8, ease: EASE } },
       }}
       style={{ background: "linear-gradient(165deg,#4a3126 0%,#311f17 55%,#2a1a13 100%)" }}
       className="group relative flex flex-col overflow-hidden rounded-3xl border border-gold/20 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-gold/50 hover:shadow-gold"
@@ -70,7 +70,7 @@ function CollectionCard({ item }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] via-transparent to-transparent" />
 
         {/* Editorial number */}
-        <span className="absolute left-5 top-4 font-serif text-5xl font-bold text-gold/35 transition-colors duration-500 group-hover:text-gold/70">
+        <span className="absolute left-5 top-4 font-serif text-4xl font-bold text-gold/35 transition-colors duration-500 group-hover:text-gold/70 sm:text-5xl">
           {item.no}
         </span>
         {/* Real product count */}
@@ -161,8 +161,8 @@ export default function FeaturedCollections() {
     show: { transition: { staggerChildren: reduce ? 0 : 0.18 } },
   };
   const item = {
-    hidden: { opacity: 0, y: reduce ? 0 : 26 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.7, ease: EASE } },
   };
   const cards = {
     hidden: {},

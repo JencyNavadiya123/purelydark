@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ChevronDown, Heart, ShoppingBag } from "lucide-react";
@@ -16,6 +16,13 @@ export default function MobileDrawer({ open, onClose }) {
 
   const subItems = (key) =>
     key === "categories" ? categories : key === "collections" ? collections : [];
+
+  /* Freeze page momentum-scroll while the menu is open. */
+  useEffect(() => {
+    if (!open) return undefined;
+    window.__lenis?.stop();
+    return () => window.__lenis?.start();
+  }, [open]);
 
   return (
     <AnimatePresence>
@@ -42,7 +49,7 @@ export default function MobileDrawer({ open, onClose }) {
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto px-5 py-6">
+            <nav data-lenis-prevent className="flex-1 overflow-y-auto px-5 py-6">
               {NAV_LINKS.map((link) =>
                 link.hasMega ? (
                   <div key={link.to} className="border-b border-white/5">
@@ -102,18 +109,25 @@ export default function MobileDrawer({ open, onClose }) {
               )}
             </nav>
 
-            <div className="flex gap-3 border-t border-white/5 p-5">
-              <Link to="/wishlist" onClick={onClose} className="btn-outline flex-1 !py-3 text-xs">
-                <Heart size={16} /> Wishlist {wishCount > 0 && `(${wishCount})`}
+            <div
+              className="flex shrink-0 flex-col gap-2.5 border-t border-white/5 p-4 min-[360px]:flex-row sm:gap-3 sm:p-5"
+              style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+            >
+              <Link
+                to="/wishlist"
+                onClick={onClose}
+                className="btn-outline min-w-0 flex-1 whitespace-nowrap !px-3 !py-3 !text-[0.7rem] !tracking-[0.08em] sm:!px-5 sm:!text-xs"
+              >
+                <Heart size={16} className="shrink-0" /> Wishlist {wishCount > 0 && `(${wishCount})`}
               </Link>
               <button
                 onClick={() => {
                   onClose();
                   openCart();
                 }}
-                className="btn-gold flex-1 !py-3 text-xs"
+                className="btn-gold min-w-0 flex-1 whitespace-nowrap !px-3 !py-3 !text-[0.7rem] !tracking-[0.08em] sm:!px-5 sm:!text-xs"
               >
-                <ShoppingBag size={16} /> Cart {count > 0 && `(${count})`}
+                <ShoppingBag size={16} className="shrink-0" /> Cart {count > 0 && `(${count})`}
               </button>
             </div>
           </motion.aside>

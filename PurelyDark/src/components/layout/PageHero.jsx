@@ -16,6 +16,7 @@ export default function PageHero({
   breadcrumb,
   image,
   video,
+  videoOpacity = 1,
   seed = 5,
   compact = false,
 }) {
@@ -26,8 +27,8 @@ export default function PageHero({
     show: { transition: { staggerChildren: 0.16, delayChildren: 0.1 } },
   };
   const itemV = {
-    hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.65, ease: EASE } },
   };
 
   return (
@@ -38,11 +39,14 @@ export default function PageHero({
     >
       {/* Background: cinematic video, else static image */}
       {video ? (
-        <BackgroundVideo
-          video={{ ...video, poster: video.poster || bg }}
-          overlay="none"
-          eager
-        />
+        <div className="absolute inset-0" style={{ opacity: videoOpacity }}>
+          <BackgroundVideo
+            video={{ ...video, poster: video.poster || bg }}
+            overlay="none"
+            eager
+            posterInitial={false}
+          />
+        </div>
       ) : (
         <img src={bg} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
       )}

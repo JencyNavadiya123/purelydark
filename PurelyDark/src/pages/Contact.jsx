@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { MapPin, Mail, Phone, Clock, Instagram, Facebook, Twitter, Youtube, Send } from "lucide-react";
+import { MapPin, Mail, Phone, Clock, Send } from "lucide-react";
 import PageHero from "../components/layout/PageHero";
 import SectionHeading from "../components/common/SectionHeading";
 import Accordion from "../components/common/Accordion";
 import Reveal from "../components/common/Reveal";
 import { useToast } from "../context/ToastContext";
+import { img } from "../utils/assets";
 import faqs from "../data/faq";
 
 const initial = { name: "", email: "", subject: "", message: "" };
@@ -70,16 +71,6 @@ export default function Contact() {
                 </li>
               ))}
             </ul>
-            <div className="mt-8">
-              <p className="label-luxe">Follow us</p>
-              <div className="flex gap-3">
-                {[Instagram, Facebook, Twitter, Youtube].map((Icon, i) => (
-                  <a key={i} href="#" aria-label="Social" className="grid h-11 w-11 place-items-center rounded-full border border-white/10 text-cream/70 transition-all hover:border-gold hover:text-gold">
-                    <Icon size={18} />
-                  </a>
-                ))}
-              </div>
-            </div>
           </Reveal>
 
           {/* Form */}
@@ -111,11 +102,49 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="section bg-cocoa/30">
-        <div className="container-luxe max-w-3xl">
-          <SectionHeading eyebrow="Questions" title="Frequently asked" className="mb-10" />
-          <Accordion items={faqs} />
+      {/* FAQ — distinct warm panel so it separates cleanly from the footer */}
+      <section
+        className="relative overflow-hidden py-16 sm:py-24 lg:py-28"
+        style={{
+          background:
+            "radial-gradient(120% 90% at 100% 0%, #2c1a13 0%, #1b100b 55%, #130d09 100%)",
+        }}
+      >
+        {/* Separating top hairline + soft gold glow */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
+        <div className="pointer-events-none absolute -right-28 top-4 h-80 w-80 rounded-full bg-gold/10 blur-[140px]" />
+
+        <div className="container-luxe relative z-[2]">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-14">
+            {/* Image column — magazine-style chocolate photo */}
+            <Reveal variant="left" className="group lg:sticky lg:top-28">
+              <div className="glow-hover relative overflow-hidden rounded-3xl border border-gold/20">
+                <img
+                  src={img(1, 1000, 1150)}
+                  alt="Dark chocolate close-up"
+                  loading="lazy"
+                  className="h-[420px] w-full object-cover transition-transform duration-[1.3s] ease-luxe group-hover:scale-105 sm:h-[540px] lg:h-[620px]"
+                />
+                {/* Gradient + caption overlay */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso via-espresso/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
+                  <span className="eyebrow">
+                    <span className="gold-rule" /> Questions
+                  </span>
+                  <h2 className="heading-lg mt-3">Frequently asked</h2>
+                  <p className="mt-3 max-w-sm text-sm leading-relaxed text-cream/75">
+                    Everything you need to know about our chocolate, shipping and
+                    care. Can't find it here? Just send us a note above.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Accordion cards */}
+            <Reveal variant="right" delay={0.12}>
+              <Accordion items={faqs} />
+            </Reveal>
+          </div>
         </div>
       </section>
     </>

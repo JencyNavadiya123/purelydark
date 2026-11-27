@@ -31,9 +31,25 @@ export default function BaseVideo({
     typeof window !== "undefined" &&
     window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
+  // Skip video playback (keep the poster) when the device/connection asks us to:
+  // Data Saver on, a slow 2g/3g connection, or a very low-memory device. This is
+  // what makes the site feel light instead of "too much load" on phones.
+  const conn =
+    typeof navigator !== "undefined" &&
+    (navigator.connection || navigator.mozConnection || navigator.webkitConnection);
+  const tooHeavy =
+    !!conn &&
+    (conn.saveData === true ||
+      /^(slow-2g|2g|3g)$/.test(conn.effectiveType || "")) ||
+    (typeof navigator !== "undefined" &&
+      navigator.deviceMemory !== undefined &&
+      navigator.deviceMemory <= 2);
+
+  const skipVideo = reduced || tooHeavy;
+
   // Lazy mount video only when near viewport (skipped when eager)
   useEffect(() => {
-    if (reduced || eager) return;
+    if (skipVideo || eager) return;
     const el = wrapRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -47,11 +63,11 @@ export default function BaseVideo({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [reduced, eager]);
+  }, [skipVideo, eager]);
 
   // Pause when scrolled off-screen (perf)
   useEffect(() => {
-    if (reduced || !inView) return;
+    if (skipVideo || !inView) return;
     const v = videoRef.current;
     if (!v) return;
     const io = new IntersectionObserver(
@@ -65,7 +81,7 @@ export default function BaseVideo({
     );
     io.observe(v);
     return () => io.disconnect();
-  }, [inView, reduced, controls, playing]);
+  }, [inView, skipVideo, controls, playing]);
 
   const toggle = () => {
     const v = videoRef.current;
@@ -90,16 +106,16 @@ export default function BaseVideo({
       {/* Poster: shown while loading (posterInitial) and always as reduced-motion/
           failure fallback. For the hero we skip the loading poster to avoid a
           mismatched still, leaving a dark background that the video fades over. */}
-      {poster && (posterInitial || reduced || failed) && (
+      {poster && (posterInitial || skipVideo || failed) && (
         <img
           src={poster}
           alt=""
           aria-hidden
-          className={`video-poster ${loaded && !failed && !reduced ? "hide" : ""}`}
+          className={`video-poster ${loaded && !failed && !skipVideo ? "hide" : ""}`}
         />
       )}
 
-      {inView && !reduced && !failed && (
+      {inView && !skipVideo && !failed && (
         <video
           ref={videoRef}
           className={objectClass}
@@ -108,11 +124,14 @@ export default function BaseVideo({
           muted
           loop={loop}
           playsInline
+          disablePictureInPicture
+          disableRemotePlayback
           preload={eager ? "auto" : "metadata"}
           poster={posterInitial ? poster : undefined}
-          onLoadedData={() => setLoaded(true)}
-          onLoadedMetadata={() => setLoaded(true)}
-          onCanPlay={() => setLoaded(true)}
+          // Reveal the video ONLY once it is actually painting frames, not on
+          // metadata/canplay (which fire before anything is drawn). This keeps
+          // the poster image visible first and prevents an empty/black video
+          // from flashing over it.
           onPlaying={() => setLoaded(true)}
           onError={() => setFailed(true)}
         >
@@ -123,7 +142,7 @@ export default function BaseVideo({
 
       {overlayCls && <div className={overlayCls} />}
 
-      {controls && inView && !reduced && !failed && (
+      {controls && inView && !skipVideo && !failed && (
         <button
           className="video-control"
           onClick={toggle}

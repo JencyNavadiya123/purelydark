@@ -54,6 +54,58 @@
   }
 }
 
+/* Animated rotating gold border (used on the Our Story quote card) */
+@property --brd-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.animated-gold-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--brd-angle),
+    rgba(198, 154, 82, 0.08) 0deg,
+    rgba(198, 154, 82, 0.08) 70deg,
+    #e6c879 150deg,
+    rgba(198, 154, 82, 0.08) 230deg,
+    rgba(198, 154, 82, 0.08) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: brd-spin 5s linear infinite;
+  pointer-events: none;
+}
+@keyframes brd-spin {
+  to {
+    --brd-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animated-gold-border::before {
+    animation: none;
+  }
+}
+
+/* Marching-ants dashed border (newsletter card) */
+.marching-dash {
+  animation: dash-march 1.4s linear infinite;
+}
+@keyframes dash-march {
+  to {
+    stroke-dashoffset: -38;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marching-dash {
+    animation: none;
+  }
+}
+
 /* Shimmer skeleton */
 .skeleton {
   position: relative;

@@ -9,7 +9,7 @@ export const faqs = [
   },
   {
     q: "Do you ship internationally?",
-    a: "Yes. We ship worldwide with temperature-controlled packaging during warmer months. Complimentary shipping applies to orders over ₹2000.",
+    a: "Yes. We ship worldwide with temperature-controlled packaging during warmer months. Complimentary shipping applies to orders over Rs. 2000.",
   },
   {
     q: "Are your chocolates suitable for vegans?",

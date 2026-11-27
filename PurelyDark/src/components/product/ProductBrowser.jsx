@@ -4,7 +4,7 @@ import ProductGrid from "./ProductGrid";
 import QuickViewModal from "./QuickViewModal";
 import SortDropdown, { sortProducts } from "../common/SortDropdown";
 import FilterSidebar, { matchesFilters, defaultFilters } from "../common/FilterSidebar";
-import Modal from "../common/Modal";
+import FilterDrawer from "../common/FilterDrawer";
 
 const PAGE_SIZE = 12;
 
@@ -33,7 +33,25 @@ export default function ProductBrowser({ products = [], showFilters = true, init
   const shown = filtered.slice(0, visible);
 
   return (
-    <div className="container-luxe section-tight">
+    <section
+      className="relative"
+      style={{ background: "linear-gradient(180deg,#1c110b 0%,#160d08 50%,#1e120c 100%)" }}
+    >
+      {/* Ambient warmth — clipped in its own layer so it never breaks the
+          sticky filter sidebar (overflow-hidden on an ancestor would). */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-10%] top-0 h-[55vh] w-[55vw] rounded-full bg-[radial-gradient(circle,rgba(198,154,82,0.08),transparent_70%)]" />
+        <div className="absolute bottom-0 right-[-8%] h-[45vh] w-[45vw] rounded-full bg-[radial-gradient(circle,rgba(169,108,54,0.08),transparent_70%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "radial-gradient(rgba(230,200,120,0.8) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+      </div>
+
+      <div className="container-luxe section-tight relative">
       <div className={showFilters ? "grid gap-10 lg:grid-cols-[260px_1fr]" : ""}>
         {/* Desktop filters */}
         {showFilters && (
@@ -44,7 +62,7 @@ export default function ProductBrowser({ products = [], showFilters = true, init
           </div>
         )}
 
-        <div>
+        <div className="min-w-0">
           <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
             <p className="text-sm text-cream/60">
               <span className="text-cream">{filtered.length}</span> products
@@ -74,21 +92,19 @@ export default function ProductBrowser({ products = [], showFilters = true, init
         </div>
       </div>
 
-      {/* Mobile filter modal */}
+      {/* Mobile / tablet filter drawer */}
       {showFilters && (
-        <Modal open={mobileFilters} onClose={() => setMobileFilters(false)} size="sm" label="Filters">
-          <div className="p-6">
-            <FilterSidebar
-              filters={filters}
-              setFilters={setFilters}
-              maxPrice={maxPrice}
-              onClose={() => setMobileFilters(false)}
-            />
-            <button onClick={() => setMobileFilters(false)} className="btn-gold mt-8 w-full">
-              Show {filtered.length} products
-            </button>
-          </div>
-        </Modal>
+        <FilterDrawer open={mobileFilters} onClose={() => setMobileFilters(false)} label="Filters">
+          <FilterSidebar
+            filters={filters}
+            setFilters={setFilters}
+            maxPrice={maxPrice}
+            onClose={() => setMobileFilters(false)}
+          />
+          <button onClick={() => setMobileFilters(false)} className="btn-gold mt-8 w-full">
+            Show {filtered.length} products
+          </button>
+        </FilterDrawer>
       )}
 
       <QuickViewModal
@@ -96,6 +112,7 @@ export default function ProductBrowser({ products = [], showFilters = true, init
         open={!!quickView}
         onClose={() => setQuickView(null)}
       />
-    </div>
+      </div>
+    </section>
   );
 }

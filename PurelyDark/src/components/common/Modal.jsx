@@ -8,9 +8,11 @@ export default function Modal({ open, onClose, children, size = "lg", label = "D
     const onKey = (e) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    window.__lenis?.stop();
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      window.__lenis?.start();
     };
   }, [open, onClose]);
 

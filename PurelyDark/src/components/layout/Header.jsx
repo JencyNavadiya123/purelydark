@@ -55,7 +55,7 @@ export default function Header({ onOpenMenu }) {
         onMouseLeave={() => setMega(null)}
       >
         {/* Full-width bar; content spans edge-to-edge with page padding */}
-        <div className="flex h-[68px] w-full items-center justify-between gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8 xl:gap-4 xl:px-12">
+        <div className="flex h-[68px] w-full items-center justify-between gap-2 px-3 sm:h-[72px] sm:gap-3 sm:px-6 lg:px-8 xl:gap-4 xl:px-12">
           {/* Logo — always far left */}
           <Logo className="shrink-0" />
 
@@ -104,7 +104,7 @@ export default function Header({ onOpenMenu }) {
             <button
               onClick={() => setSearchOpen(true)}
               aria-label="Search"
-              className="grid h-10 w-10 place-items-center text-cream/80 transition-colors hover:text-gold lg:hidden"
+              className="grid h-9 w-9 place-items-center text-cream/80 transition-colors hover:text-gold sm:h-10 sm:w-10 lg:hidden"
             >
               <Search size={20} />
             </button>
@@ -112,7 +112,7 @@ export default function Header({ onOpenMenu }) {
             <Link
               to="/wishlist"
               aria-label="Wishlist"
-              className="relative grid h-10 w-10 place-items-center text-cream/80 transition-colors hover:text-gold"
+              className="relative grid h-9 w-9 place-items-center text-cream/80 transition-colors hover:text-gold sm:h-10 sm:w-10"
             >
               <Heart size={20} />
               {wishCount > 0 && <Count n={wishCount} />}
@@ -121,7 +121,7 @@ export default function Header({ onOpenMenu }) {
             <button
               onClick={openCart}
               aria-label="Open cart"
-              className="relative grid h-10 w-10 place-items-center text-cream/80 transition-colors hover:text-gold"
+              className="relative grid h-9 w-9 place-items-center text-cream/80 transition-colors hover:text-gold sm:h-10 sm:w-10"
             >
               <ShoppingBag size={20} />
               {count > 0 && <Count n={count} />}
@@ -130,7 +130,7 @@ export default function Header({ onOpenMenu }) {
             {/* Hamburger — right side, hidden once full desktop nav shows */}
             <button
               onClick={onOpenMenu}
-              className="grid h-10 w-10 place-items-center text-cream transition-colors hover:text-gold xl:hidden"
+              className="grid h-9 w-9 place-items-center text-cream transition-colors hover:text-gold sm:h-10 sm:w-10 xl:hidden"
               aria-label="Open menu"
             >
               <Menu size={24} />

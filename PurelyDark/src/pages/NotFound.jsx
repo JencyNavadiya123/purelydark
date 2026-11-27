@@ -9,8 +9,8 @@ export default function NotFound() {
       <img src={img(10, 1920, 1080)} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-30" />
       <div className="absolute inset-0 bg-espresso/80" />
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="container-luxe relative z-[2]"
       >

@@ -42,7 +42,8 @@ export default function ProductGallery({ images = [], alt = "" }) {
         </AnimatePresence>
       </div>
 
-      <div className="grid grid-cols-4 gap-3">
+      {/* Mobile: 2-column grid (2×2). sm+: 4-column grid. */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {images.map((src, i) => (
           <button
             key={i}

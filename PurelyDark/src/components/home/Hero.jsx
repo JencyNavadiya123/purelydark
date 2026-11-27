@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown, Star } from "lucide-react";
 import HeroVideo from "../video/HeroVideo";
+import CountUp from "../common/CountUp";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const STATS = [
@@ -11,10 +12,9 @@ const STATS = [
 ];
 
 const fade = {
-  hidden: { opacity: 0, y: 34 },
+  hidden: { opacity: 0 },
   show: (i) => ({
     opacity: 1,
-    y: 0,
     transition: {
       duration: 1,
       delay: 0.35 + i * 0.28, // longer, more deliberate stagger → established feel
@@ -101,7 +101,12 @@ export default function Hero() {
                 <div>
                   <div className="flex items-baseline gap-1">
                     <span className="stat-num text-[1.7rem] leading-none text-gold-grad sm:text-[2.6rem]">
-                      {s.value}
+                      <CountUp
+                        value={parseFloat(s.value)}
+                        decimals={s.value.includes(".") ? 1 : 0}
+                        delay={1.6 + i * 0.15}
+                        duration={1.6}
+                      />
                     </span>
                     {s.suffix && (
                       <span className="stat-num text-lg text-gold/70 sm:text-2xl">{s.suffix}</span>
@@ -123,12 +128,11 @@ export default function Hero() {
       {/* Scroll cue — clickable, glides to the next section */}
       <motion.button
         type="button"
-        onClick={() =>
-          window.scrollTo({
-            top: window.innerHeight - 70,
-            behavior: "smooth",
-          })
-        }
+        onClick={() => {
+          const top = window.innerHeight - 70;
+          if (window.__lenis) window.__lenis.scrollTo(top, { duration: 1.3 });
+          else window.scrollTo({ top, behavior: "smooth" });
+        }}
         aria-label="Scroll to explore"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -7,6 +7,42 @@ import {
   useReducedMotion,
 } from "framer-motion";
 
+/**
+ * ScrollReveal — content fades + eases in driven by its own scroll position
+ * (not a one-shot trigger). As the element rises through the viewport it
+ * reveals progressively, and reverses when scrolled back up.
+ */
+export function ScrollReveal({
+  children,
+  className = "",
+  from = 0.9,
+  to = 0.6,
+  scaleFrom = 0.94,
+  as: Tag = motion.div,
+}) {
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: [`start ${from}`, `start ${to}`],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [scaleFrom, 1]);
+
+  if (reduce) {
+    return (
+      <Tag ref={ref} className={className}>
+        {children}
+      </Tag>
+    );
+  }
+  return (
+    <Tag ref={ref} className={className} style={{ opacity, scale }}>
+      {children}
+    </Tag>
+  );
+}
+
 /* ------------------------------------------------------------------
    Scroll-linked motion helpers. All effects are GPU-friendly
    (transform / opacity only), smoothed with a spring, and fully

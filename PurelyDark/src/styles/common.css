@@ -36,7 +36,8 @@
     @apply inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-luxe text-gold;
   }
   .lede {
-    @apply text-base sm:text-lg text-cream/70 font-light leading-relaxed;
+    @apply text-cream/70 font-light leading-relaxed;
+    font-size: clamp(0.95rem, 0.9rem + 0.55vw, 1.125rem);
     letter-spacing: 0.005em;
   }
   .text-muted {

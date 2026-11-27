@@ -5,8 +5,8 @@ const EASE = [0.22, 1, 0.36, 1];
 /* Scroll-triggered reveal variants.
    variant: up | down | fade | left | right | scale | zoom | blur */
 const VARIANTS = {
-  up: { hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } },
-  down: { hidden: { opacity: 0, y: -40 }, show: { opacity: 1, y: 0 } },
+  up: { hidden: { opacity: 0 }, show: { opacity: 1 } },
+  down: { hidden: { opacity: 0 }, show: { opacity: 1 } },
   fade: { hidden: { opacity: 0 }, show: { opacity: 1 } },
   left: { hidden: { opacity: 0, x: -50 }, show: { opacity: 1, x: 0 } },
   right: { hidden: { opacity: 0, x: 50 }, show: { opacity: 1, x: 0 } },

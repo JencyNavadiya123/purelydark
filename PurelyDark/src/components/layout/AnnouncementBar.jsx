@@ -1,7 +1,7 @@
 import { Truck, Gem, Leaf, Sparkles } from "lucide-react";
 
 const MESSAGES = [
-  { icon: Truck, text: "Complimentary shipping on orders over ₹2000" },
+  { icon: Truck, text: "Complimentary shipping on orders over Rs. 2000" },
   { icon: Sparkles, text: "New: Limited Edition single-origin bars now live" },
   { icon: Gem, text: "Hand-crafted in small batches · Bean to bar" },
   { icon: Leaf, text: "Ethically sourced cocoa from 15 origins" },
